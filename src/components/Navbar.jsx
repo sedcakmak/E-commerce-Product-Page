@@ -14,7 +14,7 @@ import { ReactComponent as Cart } from "../images/icon-cart.svg";
 import { ReactComponent as Hamburger } from "../images/icon-menu.svg";
 import { ReactComponent as Logo } from "../images/logo.svg";
 import Avatar from "../images/image-avatar.png";
-import { motion } from "framer-motion";
+//import { motion } from "framer-motion";
 
 const Navbar = ({ onOpen, ref }) => {
   const [scroll, setScroll] = useState(false);
@@ -58,18 +58,18 @@ const Navbar = ({ onOpen, ref }) => {
                   href={navItem.href ?? "#"}
                   fontSize={"md"}
                   display="inline-block"
-                  position="relative"
+                  pos="relative"
                 >
                   <Box
-                    paddingBottom="40px"
+                    pb="40px"
                     display="inline-block"
-                    bgGradient={"linear(yellow, yellow)"}
-                    backgroundSize="0% 5px"
-                    backgroundRepeat={"no-repeat"}
+                    bgGradient={"linear(orange, orange)"}
+                    bgSize="0% 5px"
+                    bgRepeat={"no-repeat"}
                     transition="background .3s"
-                    backgroundPosition={"50% 100%"}
+                    bgPosition={"50% 100%"}
                     _hover={{
-                      backgroundSize: "100% 5px",
+                      bgSize: "100% 5px",
                     }}
                   >
                     {navItem.label}
@@ -85,9 +85,10 @@ const Navbar = ({ onOpen, ref }) => {
 
         <Box
           pos="relative"
-          p={2}
+          p="2"
+          pb={{ md: "7" }}
           me={{ base: "1", md: "10" }}
-          // me={isLargerThanMD ? "10" : "5"}
+          _hover={{ cursor: "pointer" }}
         >
           <Cart />
           <Badge
@@ -103,28 +104,21 @@ const Navbar = ({ onOpen, ref }) => {
             3
           </Badge>
         </Box>
-        <motion.div
-        // whileHover={{
-        //   opacity: 0.5,
-        //   transition: {
-        //     all: { ease: "linear" },
-        //     layout: { duration: 0.3 },
-        //   },
-        // }}
-        >
+        <Box pb={{ md: "7" }}>
           <Image
-            h={isLargerThanMD ? "50px" : "25px"}
+            h={isLargerThanMD ? "50px" : "30px"}
             src={Avatar}
             alt="avatar"
             border="4px"
             borderRadius={50}
             scale={2.1}
             borderColor={"transparent"}
-            _hover={{ borderColor: "orange", cursor: "pointer" }} //Chakra UI default hover
+            _hover={{ borderColor: "orange", cursor: "pointer" }}
             transition="all .1s ease-out"
           />
-        </motion.div>
+        </Box>
       </Flex>
+
       {isLargerThanMD && (
         <Divider
           h="3"
