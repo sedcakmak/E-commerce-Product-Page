@@ -2,23 +2,45 @@ import React, { Fragment, useState } from "react";
 import {
   Box,
   Image,
+  Text,
   Badge,
+  Center,
   Link,
   Flex,
+  Button,
   Divider,
   Spacer,
-  useColorModeValue,
+  Stack,
+  Grid,
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
+  useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverBody,
+  PopoverContent,
+  PopoverHeader,
+  // useColorModeValue,
   useMediaQuery,
+  DrawerHeader,
 } from "@chakra-ui/react";
 import { ReactComponent as Cart } from "../images/icon-cart.svg";
 import { ReactComponent as Hamburger } from "../images/icon-menu.svg";
 import { ReactComponent as Logo } from "../images/logo.svg";
+import { ReactComponent as CloseIcon } from "../images/icon-close.svg";
 import Avatar from "../images/image-avatar.png";
 //import { motion } from "framer-motion";
 
-const Navbar = ({ onOpen, ref }) => {
+const Navbar = ({ ref }) => {
   const [scroll, setScroll] = useState(false);
-  const navBg = useColorModeValue("white", "blackAlpha.200");
+  const [cartIsFull, setCartIsFull] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+  const initialRef = React.useRef();
+
+  //const navBg = useColorModeValue("white", "blackAlpha.200");
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
 
   const changeScroll = () =>
@@ -39,8 +61,8 @@ const Navbar = ({ onOpen, ref }) => {
         top="0"
         zIndex="sticky"
         w="full"
-        bg={navBg}
-        pt="70px"
+        // bg={navBg}
+        pt={{ md: "70px" }}
         pb="20px"
       >
         <Flex
@@ -63,7 +85,7 @@ const Navbar = ({ onOpen, ref }) => {
                   <Box
                     pb="40px"
                     display="inline-block"
-                    bgGradient={"linear(orange, orange)"}
+                    bgGradient={"linear(primary.orange, primary.orange)"}
                     bgSize="0% 5px"
                     bgRepeat={"no-repeat"}
                     transition="background .3s"
@@ -78,32 +100,113 @@ const Navbar = ({ onOpen, ref }) => {
               ))}
             </Fragment>
           ) : (
-            <Hamburger />
+            <>
+              <Hamburger
+                ref={btnRef}
+                onClick={onOpen}
+              />
+              <Drawer
+                isOpen={isOpen}
+                placement="left"
+                onClose={onClose}
+                finalFocusRef={btnRef}
+              >
+                <DrawerOverlay />
+                <DrawerContent maxW="65%">
+                  <DrawerBody>
+                    <Grid
+                      templateRows="(1fr)"
+                      gap={5}
+                      py={2}
+                    >
+                      <CloseIcon onClick={onClose} />
+                      <Spacer />
+                      {NAV_ITEMS.map((navItem) => (
+                        <Link
+                          key={navItem.label}
+                          href={navItem.href ?? "#"}
+                          fontWeight="700"
+                          _active={{
+                            bgColor: "transparent",
+                          }}
+                          _hover={{ color: "primary.orange" }}
+                        >
+                          {navItem.label}
+                        </Link>
+                      ))}
+                    </Grid>
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            </>
           )}
         </Flex>
         <Spacer />
 
-        <Box
-          pos="relative"
-          p="2"
-          pb={{ md: "7" }}
-          me={{ base: "1", md: "10" }}
-          _hover={{ cursor: "pointer" }}
+        <Popover
+          trigger="click"
+          initialFocusRef={initialRef}
         >
-          <Cart />
-          <Badge
-            pos="absolute"
-            top="0"
-            right="0"
-            colorScheme="orange"
-            rounded="xl" //borderRadius={10}
-            fontSize="0.5em"
-            px={2}
-            py={0}
+          <PopoverTrigger>
+            <Box
+              pos="relative"
+              p="2"
+              pb={{ md: "7" }}
+              me={{ base: "1", md: "10" }}
+              _hover={{ cursor: "pointer" }}
+            >
+              <Cart />
+              <Badge
+                pos="absolute"
+                top="0"
+                right="0"
+                bg="primary.orange"
+                color="neutral.white"
+                rounded="xl" //borderRadius={10}
+                fontSize="0.6em"
+                px={2}
+                py={0}
+              >
+                3
+              </Badge>
+            </Box>
+          </PopoverTrigger>
+
+          <PopoverContent
+            bg="white"
+            color="black"
+            h="200px"
+            boxShadow="2xl"
+            borderTop="none"
           >
-            3
-          </Badge>
-        </Box>
+            <PopoverHeader fontWeight="semibold">Cart</PopoverHeader>
+            <PopoverBody>
+              {cartIsFull ? (
+                <Stack>
+                  <Link ref={initialRef}>Autumn Limited Edition</Link>
+                  <Spacer />
+                  <Button
+                    bg="orange"
+                    color="white"
+                    rounded="lg"
+                  >
+                    Checkout
+                  </Button>
+                </Stack>
+              ) : (
+                <Center
+                  ref={initialRef}
+                  h="100px"
+                  color="neutral.darkGrayishBlue"
+                  fontWeight={700}
+                >
+                  Your cart is empty.
+                </Center>
+              )}
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+
         <Box pb={{ md: "7" }}>
           <Image
             h={isLargerThanMD ? "50px" : "30px"}
@@ -113,7 +216,7 @@ const Navbar = ({ onOpen, ref }) => {
             borderRadius={50}
             scale={2.1}
             borderColor={"transparent"}
-            _hover={{ borderColor: "orange", cursor: "pointer" }}
+            _hover={{ borderColor: "primary.orange", cursor: "pointer" }}
             transition="all .1s ease-out"
           />
         </Box>
@@ -124,7 +227,7 @@ const Navbar = ({ onOpen, ref }) => {
           h="3"
           w="calc(100% - 320px)"
           m="auto"
-          borderBottom="1px solid lightgray"
+          borderColor="neutral.grayishBlue"
         />
       )}
     </>
