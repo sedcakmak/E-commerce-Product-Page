@@ -16,6 +16,7 @@ const theme = extendTheme({
     primary: {
       orange: "hsl(26, 100%, 55%)",
       paleOrange: "hsl(25, 100%, 94%)",
+      customGray: "#69707D",
     },
     neutral: {
       veryDarkBlue: "hsl(220, 13%, 13%)",

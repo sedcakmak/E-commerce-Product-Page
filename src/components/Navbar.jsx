@@ -79,6 +79,7 @@ const Navbar = ({ ref }) => {
                   key={navItem.label}
                   href={navItem.href ?? "#"}
                   fontSize={"md"}
+                  color="primary.customGray"
                   display="inline-block"
                   pos="relative"
                 >
@@ -146,16 +147,17 @@ const Navbar = ({ ref }) => {
         <Popover
           trigger="click"
           initialFocusRef={initialRef}
+          // placement="auto"
         >
           <PopoverTrigger>
             <Box
               pos="relative"
               p="2"
-              pb={{ md: "7" }}
+              pb={{ md: "10" }}
               me={{ base: "1", md: "10" }}
               _hover={{ cursor: "pointer" }}
             >
-              <Cart />
+              <Cart style={{ fill: "#69707D" }} />
               <Badge
                 pos="absolute"
                 top="0"
@@ -178,6 +180,9 @@ const Navbar = ({ ref }) => {
             h="200px"
             boxShadow="2xl"
             borderTop="none"
+            // w={{ base: "90vw" }}
+            minW={{ base: "90vw", lg: "fit-content" }}
+            mr={{ base: "20px" }}
           >
             <PopoverHeader fontWeight="semibold">Cart</PopoverHeader>
             <PopoverBody>
@@ -207,9 +212,9 @@ const Navbar = ({ ref }) => {
           </PopoverContent>
         </Popover>
 
-        <Box pb={{ md: "7" }}>
+        <Box pb={{ md: "10" }}>
           <Image
-            h={isLargerThanMD ? "50px" : "30px"}
+            h={isLargerThanMD ? "50px" : "32px"}
             src={Avatar}
             alt="avatar"
             border="4px"
