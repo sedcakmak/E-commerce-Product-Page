@@ -35,7 +35,7 @@ import Avatar from "../images/image-avatar.png";
 
 const Navbar = ({ ref }) => {
   const [scroll, setScroll] = useState(false);
-  const [cartIsFull, setCartIsFull] = useState(false);
+  const [cartIsFull, setCartIsFull] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const initialRef = React.useRef();
@@ -177,7 +177,8 @@ const Navbar = ({ ref }) => {
           <PopoverContent
             bg="white"
             color="black"
-            h="200px"
+            h={{ base: "300px", lg: "200px" }}
+            mt={{ base: "9", lg: "1" }}
             boxShadow="2xl"
             borderTop="none"
             // w={{ base: "90vw" }}
@@ -185,7 +186,7 @@ const Navbar = ({ ref }) => {
             mr={{ base: "20px" }}
           >
             <PopoverHeader fontWeight="semibold">Cart</PopoverHeader>
-            <PopoverBody>
+            <PopoverBody h="100%">
               {cartIsFull ? (
                 <Stack>
                   <Link ref={initialRef}>Autumn Limited Edition</Link>
@@ -201,7 +202,7 @@ const Navbar = ({ ref }) => {
               ) : (
                 <Center
                   ref={initialRef}
-                  h="100px"
+                  h="100%"
                   color="neutral.darkGrayishBlue"
                   fontWeight={700}
                 >

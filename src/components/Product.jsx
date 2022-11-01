@@ -1,16 +1,4 @@
-import {
-  useMediaQuery,
-  Image,
-  Box,
-  Button,
-  Text,
-  Heading,
-  Flex,
-  Spacer,
-  Container,
-  IconButton,
-  HStack,
-} from "@chakra-ui/react";
+import { useMediaQuery, Image, Box, Flex, IconButton } from "@chakra-ui/react";
 import { ReactComponent as Previous } from "../images/icon-previous.svg";
 import { ReactComponent as Next } from "../images/icon-next.svg";
 
@@ -31,12 +19,18 @@ const Product = () => {
   }
   return (
     <>
-      <Box ms="30px">
+      <Box
+        w="100%"
+        maxW={{ lg: "375px" }}
+        position="relative"
+        mt={{ base: "0", lg: "16" }}
+        ms={{ base: "0", lg: "52" }}
+      >
         <Box
-          boxSize="xs"
+          // boxSize="xs"
+          w={{ base: "100%" }}
           position={"relative"}
           // width="100%"
-          // maxWidth={"375px"}
         >
           {!isLargerThanMD && (
             <IconButton
@@ -46,8 +40,11 @@ const Product = () => {
               fontSize="20px"
               position="absolute"
               top="50%"
-              transform="translateY(-50%)"
+              left="0"
               icon={<Previous />}
+              bgColor={"white"}
+              borderRadius="3xl"
+              ms="5"
             />
           )}
           {/* <motion.div
@@ -63,8 +60,11 @@ const Product = () => {
           <Image
             src={displayPicture}
             alt="Product first image"
-            rounded="xl"
+            rounded={{ base: "none", lg: "xl" }}
             _hover={{ cursor: "pointer" }}
+            objectFit="cover"
+            height="350px"
+            w="100%"
           />
           {/* </motion.div> */}
 
@@ -76,15 +76,17 @@ const Product = () => {
               fontSize="20px"
               position="absolute"
               top="50%"
-              left="100%"
-              transform="translateY(-50%)"
+              right="0"
               icon={<Next />}
+              bgColor={"white"}
+              borderRadius="3xl"
+              me="5"
             />
           )}
         </Box>
         {isLargerThanMD && (
           <Box
-            maxW="320px"
+            maxW="375px"
             my="30px"
           >
             <Flex justify={"space-between"}>
@@ -98,6 +100,7 @@ const Product = () => {
                   //   image.src_display === displayPicture ? "active" : ""
                   // }
                   display="block"
+                  userSelect="none"
                   verticalAlign="bottom"
                   border={
                     image.src_display === displayPicture
