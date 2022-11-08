@@ -38,12 +38,13 @@ import Avatar from "../images/image-avatar.png";
 import { CartContext } from "../App";
 //import { motion } from "framer-motion";
 
-const Navbar = ({ ProductDetails }) => {
+const Navbar = ({ ProductDetails, showQuantity }) => {
   const [scroll, setScroll] = useState(false);
-  const [cartIsFull, setCartIsFull] = useState(true);
+  // const [cartIsFull, setCartIsFull] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { quantity, setQuantity } = useContext(CartContext);
-  // const { showQuantity, setShowQuantity } = useContext(CartContext);
+  const { quantity, setQuantity, cartIsFull, setCartIsFull } =
+    useContext(CartContext);
+  //  const { showQuantity, setShowQuantity } = useContext(CartContext);
   const btnRef = React.useRef();
   const initialRef = React.useRef();
 
@@ -54,6 +55,9 @@ const Navbar = ({ ProductDetails }) => {
       ? setScroll(true)
       : setScroll(false);
 
+  function emptyCart() {
+    setCartIsFull(false);
+  }
   window.addEventListener("scroll", changeScroll);
 
   return (
@@ -252,7 +256,7 @@ const Navbar = ({ ProductDetails }) => {
                       </Flex>
                     </Link>
                     <Box alignSelf="center">
-                      <Trash onClick={() => console.log("working")} />
+                      <Trash onClick={() => emptyCart()} />
                     </Box>
                   </Flex>
                   <Button

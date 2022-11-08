@@ -14,11 +14,9 @@ import { ReactComponent as Plus } from "../images/icon-plus.svg";
 import { ReactComponent as Minus } from "../images/icon-minus.svg";
 import { useContext } from "react";
 import { CartContext } from "../App";
-import Product from "./Product";
 
-const Description = ({ ProductDetails }) => {
+const Description = ({ ProductDetails, showQuantity }) => {
   const { quantity, setQuantity } = useContext(CartContext);
-  // const { showQuantity, setShowQuantity } = useContext(CartContext);
 
   function decreaseQuantity() {
     if (quantity > 0) setQuantity((prev) => prev - 1);
@@ -97,7 +95,6 @@ const Description = ({ ProductDetails }) => {
       >
         <HStack
           bgColor="neutral.lightGrayishBlue"
-          //bgColor="black"
           py={2}
           spacing="40px"
           borderRadius={"8px"}
@@ -132,7 +129,7 @@ const Description = ({ ProductDetails }) => {
           transition="opacity .2s ease-in"
           _hover={{ opacity: ".7" }}
           w="100%"
-          //   onClick={showQuantity}
+          onClick={showQuantity}
         >
           <Cart style={{ fill: "white", marginRight: "1rem" }} />
           Add to cart

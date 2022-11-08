@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import Product from "./Product";
 import Description from "./Description";
 
-const Main = ({ ProductDetails }) => {
+const Main = ({ ProductDetails, showQuantity }) => {
   return (
     <Flex
       flexDirection={{ base: "column", lg: "row" }}
@@ -11,7 +11,10 @@ const Main = ({ ProductDetails }) => {
       justify="space-evenly"
     >
       <Product />
-      <Description ProductDetails={ProductDetails} />
+      <Description
+        ProductDetails={ProductDetails}
+        showQuantity={showQuantity}
+      />
     </Flex>
   );
 };
