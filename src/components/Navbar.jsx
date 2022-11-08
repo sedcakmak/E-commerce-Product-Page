@@ -9,9 +9,13 @@ import {
   Button,
   Divider,
   Spacer,
-  Stack,
   Grid,
   GridItem,
+  Container,
+  VStack,
+  HStack,
+  Stack,
+  Text,
   Drawer,
   DrawerBody,
   DrawerOverlay,
@@ -64,7 +68,8 @@ const Navbar = ({ ProductDetails }) => {
         zIndex="sticky"
         w="full"
         // bg={navBg}
-        pt={{ lg: "70px" }}
+        mt="16px"
+        pt={{ lg: "35px" }}
         //  pb="20px"
       >
         <Flex
@@ -181,7 +186,7 @@ const Navbar = ({ ProductDetails }) => {
           <PopoverContent
             bg="white"
             color="black"
-            h={{ base: "300px", lg: "200px" }}
+            h={{ base: "225px", lg: "200px" }}
             mt={{ base: "9", lg: "1" }}
             boxShadow="2xl"
             borderTop="none"
@@ -192,75 +197,75 @@ const Navbar = ({ ProductDetails }) => {
             <PopoverHeader fontWeight="semibold">Cart</PopoverHeader>
             <PopoverBody h="100%">
               {cartIsFull ? (
-                <Link
-                  //  ref={initialRef}
-                  href={"/"}
-                  _hover={{
-                    cursor: "pointer",
-                    textDecoration: "none",
-                  }}
-                >
-                  <Grid
-                    h="100%"
-                    templateRows="repeat(3, 30px)"
-                    templateColumns="repeat(5, 1fr)"
-                    //  gap={2}
+                <Fragment>
+                  <Flex
+                    direction={"row"}
+                    justify="space-around"
+                    mt={4}
+                    _hover={{
+                      cursor: "pointer",
+                    }}
                   >
-                    <GridItem
-                      rowSpan={2}
-                      colSpan={1}
-                      bgImage={ProductDetails[0].src}
-                      bgSize="contain"
-                      bgRepeat={"no-repeat"}
-                      // border="1px solid red"
-                    />
-                    <GridItem
-                      colSpan={3}
-                      whiteSpace="nowrap"
-                      rowSpan={1}
-                      textOverflow="ellipsis"
-                      overflow={"hidden"}
-                      //  border="1px solid yellow"
+                    <Link
+                      //  ref={initialRef}
+                      href={"/"}
+                      _hover={{
+                        cursor: "pointer",
+                        textDecoration: "none",
+                      }}
                     >
-                      {ProductDetails[0].title}
-                    </GridItem>
+                      <Flex>
+                        <Image
+                          boxSize="50px"
+                          objectFit="cover"
+                          src={ProductDetails[0].src}
+                          alt="sneakers product image"
+                          me="15px"
+                          borderRadius={"8px"}
+                        />
+                        <Flex
+                          direction={"column"}
+                          fontSize="15px"
+                        >
+                          <Text color="primary.customGray">
+                            {" "}
+                            {ProductDetails[0].title}
+                          </Text>
+                          <Text color="primary.customGray">
+                            {"$" +
+                              ProductDetails[0].discountedPrice.toFixed(2) +
+                              " x "}
+                            {quantity}
 
-                    <GridItem
-                      colSpan={3}
-                      //    border="1px solid green"
-                    >
-                      {"$" +
-                        ProductDetails[0].discountedPrice.toFixed(2) +
-                        " x "}
-                      {quantity}{" "}
-                      {"$" +
-                        (ProductDetails[0].discountedPrice * quantity).toFixed(
-                          2
-                        )}
-                    </GridItem>
-                    <GridItem
-                      rowSpan={1}
-                      // colStart={5}
-                      // colEnd={5}
-                      border="1px solid purple"
-                      //  ms={8}
-                    >
-                      <Trash />
-                    </GridItem>
-
-                    <GridItem
-                      colSpan={5}
-                      rowSpan={2}
-                      bg="primary.orange"
-                      color="white"
-                      rounded="lg"
-                      as="button"
-                      my={4}
-                    >
-                      Checkout
-                    </GridItem>
-                  </Grid>
-                </Link>
+                            <Text
+                              as="span"
+                              fontWeight={700}
+                              color="black"
+                            >
+                              {" $" +
+                                (
+                                  ProductDetails[0].discountedPrice * quantity
+                                ).toFixed(2)}
+                            </Text>
+                          </Text>
+                        </Flex>
+                      </Flex>
+                    </Link>
+                    <Box alignSelf="center">
+                      <Trash onClick={() => console.log("working")} />
+                    </Box>
+                  </Flex>
+                  <Button
+                    bg="primary.orange"
+                    color="white"
+                    rounded="lg"
+                    w="full"
+                    mt={8}
+                    _hover={{ opacity: "0.7" }}
+                  >
+                    Checkout
+                  </Button>
+                </Fragment>
               ) : (
                 <Center
                   ref={initialRef}

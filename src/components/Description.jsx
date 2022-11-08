@@ -38,13 +38,14 @@ const Description = ({ ProductDetails }) => {
         letterSpacing=".1rem"
         fontWeight={"700"}
         color="primary.orange"
-        mb={{ base: 2, lg: 4 }}
+        mb={4}
       >
         Sneaker Company
       </Heading>
       <Heading
         size="xl"
-        mb={{ base: 2, lg: 6 }}
+        mb={{ base: 3, lg: 6 }}
+        lineHeight={{ base: 1, lg: 1.33 }}
       >
         {ProductDetails[0].title}
       </Heading>
@@ -96,12 +97,14 @@ const Description = ({ ProductDetails }) => {
       >
         <HStack
           bgColor="neutral.lightGrayishBlue"
+          //bgColor="black"
           py={2}
           spacing="40px"
           borderRadius={"8px"}
           justifyContent={{ base: "space-between", lg: "center" }}
           userSelect={"none"}
           mb={2}
+          me={4}
           px={{ base: 4, lg: 2 }}
         >
           <Box

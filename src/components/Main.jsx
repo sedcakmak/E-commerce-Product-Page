@@ -8,7 +8,6 @@ const Main = ({ ProductDetails }) => {
       flexDirection={{ base: "column", lg: "row" }}
       mt={{ base: 0, lg: 12 }}
       alignItems="center"
-      //  justifyContent={"center"}
       justify="space-evenly"
     >
       <Product />

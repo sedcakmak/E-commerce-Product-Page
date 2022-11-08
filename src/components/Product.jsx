@@ -1,35 +1,95 @@
-import { useMediaQuery, Image, Box, Flex, IconButton } from "@chakra-ui/react";
+import {
+  useMediaQuery,
+  Image,
+  Box,
+  Flex,
+  IconButton,
+  calc,
+} from "@chakra-ui/react";
 import { ReactComponent as Previous } from "../images/icon-previous.svg";
 import { ReactComponent as Next } from "../images/icon-next.svg";
 
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 //import { motion } from "framer-motion";
 
 const Product = () => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
-  const [displayPicture, setDisplayPicture] = useState(
+  const [displayImage, setDisplayImage] = useState(
     "/images/image-product-1.jpg"
   );
+  const [slide, setSlide] = useState(0);
+  const imageRef = useRef();
 
-  function changeDisplayPicture(e) {
+  const [touchPosition, setTouchPosition] = useState(null);
+
+  const handleTouchStart = (e) => {
+    const touchDown = e.touches[0].clientX;
+    setTouchPosition(touchDown);
+  };
+
+  useEffect(() => {
+    setDisplayImage(ProductImages[slide].src_display);
+  }, [slide]);
+
+  useEffect(() => {
+    imageRef.current.animate(
+      {
+        opacity: [0, 1],
+        // transform: ["scale(0,0)", "scale(1,1)"],
+        //  transform: ["translateX(300px)", "translateX(0px)"],
+      },
+      700
+    );
+  }, [displayImage]);
+
+  function changeDisplayImage(e) {
     let displaySource = e.currentTarget.getAttribute("src_display");
-    setDisplayPicture(displaySource);
+    setDisplayImage(displaySource);
   }
+  function displayNextImage() {
+    slide < ProductImages.length - 1
+      ? setSlide((prev) => prev + 1)
+      : setSlide(0);
+  }
+  function displayPrevImage() {
+    slide > 0
+      ? setSlide((prev) => prev - 1)
+      : setSlide(ProductImages.length - 1);
+  }
+
+  const handleTouchMove = (e) => {
+    const touchDown = touchPosition;
+
+    if (touchDown === null) {
+      return;
+    }
+
+    const currentTouch = e.touches[0].clientX;
+    const diff = touchDown - currentTouch;
+
+    if (diff > 5) {
+      displayNextImage();
+    }
+
+    if (diff < -5) {
+      displayPrevImage();
+    }
+
+    setTouchPosition(null);
+  };
+
   return (
     <>
       <Box
         w="100%"
         maxW={{ lg: "375px" }}
         position="relative"
-        //   mt={{ base: "0", lg: "16" }}
-        // ms={{ base: "0", lg: "52" }}
       >
         <Box
-          // boxSize="xs"
           w={{ base: "100%" }}
           h={{ base: "37vh", lg: "375px" }}
           position={"relative"}
-          // width="100%"
+          overflow="hidden"
         >
           {!isLargerThanMD && (
             <IconButton
@@ -44,33 +104,31 @@ const Product = () => {
               bgColor={"white"}
               borderRadius="3xl"
               ms="5"
+              onClick={() => displayPrevImage()}
             />
           )}
-          {/* <motion.div
-            className="container"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              type: "tween",
-              duration: 5,
-              ease: "easeOut",
-            }}
-          > */}
           <Image
-            src={displayPicture}
-            alt="Product first image"
+            src={displayImage}
+            alt="Product image"
+            ref={imageRef}
             rounded={{ base: "none", lg: "xl" }}
-            _hover={{ cursor: "pointer" }}
-            objectFit="cover"
+            _hover={{
+              cursor: "pointer",
+              w: { base: null, md: "calc(100% + 20px)" },
+              h: { base: null, md: "calc(100% + 20px)" },
+            }}
+            objectFit={{ base: "fill", lg: "cover" }}
             h="100%"
             w="100%"
+            transition=".2s ease-out"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
           />
-          {/* </motion.div> */}
 
           {!isLargerThanMD && (
             <IconButton
               variant="ghost"
-              colorScheme="teal"
+              colorScheme="orange"
               aria-label="Next"
               fontSize="20px"
               position="absolute"
@@ -80,6 +138,7 @@ const Product = () => {
               bgColor={"white"}
               borderRadius="3xl"
               me="5"
+              onClick={() => displayNextImage()}
             />
           )}
         </Box>
@@ -92,7 +151,7 @@ const Product = () => {
               {ProductImages.map((image) => (
                 <Box
                   border={
-                    image.src_display === displayPicture
+                    image.src_display === displayImage
                       ? "3px solid #F9812A"
                       : "3px solid transparent"
                   }
@@ -106,12 +165,12 @@ const Product = () => {
                     boxSize="80px"
                     userSelect="none"
                     borderRadius="8px"
-                    opacity={image.src_display === displayPicture ? "0.5" : "1"}
+                    opacity={image.src_display === displayImage ? "0.5" : "1"}
                     _hover={{
                       cursor: "pointer",
                       opacity: "0.6",
                     }}
-                    onClick={(e) => changeDisplayPicture(e)}
+                    onClick={(e) => changeDisplayImage(e)}
                   />
                 </Box>
               ))}
