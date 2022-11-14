@@ -10,11 +10,6 @@ import {
   Divider,
   Spacer,
   Grid,
-  GridItem,
-  Container,
-  VStack,
-  HStack,
-  Stack,
   Text,
   Drawer,
   DrawerBody,
@@ -42,8 +37,7 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
   const [scroll, setScroll] = useState(false);
   // const [cartIsFull, setCartIsFull] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { quantity, setQuantity, cartIsFull, setCartIsFull } =
-    useContext(CartContext);
+  const { quantity, cartIsFull, setCartIsFull } = useContext(CartContext);
   //  const { showQuantity, setShowQuantity } = useContext(CartContext);
   const btnRef = React.useRef();
   const initialRef = React.useRef();
@@ -160,6 +154,7 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
         <Popover
           trigger="click"
           initialFocusRef={initialRef}
+          // closeOnBlur={false}
           // placement="auto"
         >
           <PopoverTrigger>
