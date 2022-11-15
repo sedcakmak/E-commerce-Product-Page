@@ -15,7 +15,7 @@ import { ReactComponent as Minus } from "../images/icon-minus.svg";
 import { useContext } from "react";
 import { CartContext } from "../App";
 
-const Description = ({ ProductDetails, showQuantity }) => {
+const Description = ({ ProductDetails, addtoCart }) => {
   const { quantity, setQuantity } = useContext(CartContext);
 
   function decreaseQuantity() {
@@ -101,7 +101,7 @@ const Description = ({ ProductDetails, showQuantity }) => {
           justifyContent={{ base: "space-between", lg: "center" }}
           userSelect={"none"}
           mb={2}
-          me={4}
+          me={{ lg: 4 }}
           px={{ base: 4, lg: 2 }}
         >
           <Box
@@ -127,11 +127,19 @@ const Description = ({ ProductDetails, showQuantity }) => {
           bgColor="primary.orange"
           color="neutral.white"
           transition="opacity .2s ease-in"
+          fontSize="12px"
           _hover={{ opacity: ".7" }}
           w="100%"
-          onClick={showQuantity}
+          onClick={addtoCart}
         >
-          <Cart style={{ fill: "white", marginRight: "1rem" }} />
+          <Cart
+            style={{
+              fill: "white",
+              width: "14px",
+              height: "12px",
+              marginRight: ".5rem",
+            }}
+          />
           Add to cart
         </Button>
       </Flex>

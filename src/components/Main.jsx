@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import Product from "./Product";
 import Description from "./Description";
 
-const Main = ({ ProductDetails, showQuantity }) => {
+const Main = ({ ProductDetails, addtoCart }) => {
   return (
     <Flex
       flexDirection={{ base: "column", lg: "row" }}
@@ -13,7 +13,7 @@ const Main = ({ ProductDetails, showQuantity }) => {
       <Product />
       <Description
         ProductDetails={ProductDetails}
-        showQuantity={showQuantity}
+        addtoCart={addtoCart}
       />
     </Flex>
   );

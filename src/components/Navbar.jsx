@@ -33,16 +33,13 @@ import Avatar from "../images/image-avatar.png";
 import { CartContext } from "../App";
 //import { motion } from "framer-motion";
 
-const Navbar = ({ ProductDetails, showQuantity }) => {
+const Navbar = ({ ProductDetails }) => {
   const [scroll, setScroll] = useState(false);
-  // const [cartIsFull, setCartIsFull] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { quantity, cartIsFull, setCartIsFull } = useContext(CartContext);
-  //  const { showQuantity, setShowQuantity } = useContext(CartContext);
+  const { quantity, cartIsFull, setCartIsFull, cartItems } =
+    useContext(CartContext);
   const btnRef = React.useRef();
   const initialRef = React.useRef();
-
-  //const navBg = useColorModeValue("white", "blackAlpha.200");
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
   const changeScroll = () =>
     document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
@@ -52,6 +49,7 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
   function emptyCart() {
     setCartIsFull(false);
   }
+
   window.addEventListener("scroll", changeScroll);
 
   return (
@@ -65,10 +63,8 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
         top="0"
         zIndex="sticky"
         w="full"
-        // bg={navBg}
         mt="16px"
         pt={{ lg: "35px" }}
-        //  pb="20px"
       >
         <Flex
           direction={{ base: "row-reverse", lg: "row" }}
@@ -162,10 +158,12 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
               pos="relative"
               p="2"
               pb={{ lg: "10" }}
-              me={{ base: "1", lg: "10" }}
+              me={{ base: "1", lg: "6" }}
               _hover={{ cursor: "pointer" }}
             >
-              <Cart style={{ fill: "#69707D" }} />
+              <Cart
+                style={{ fill: "#69707D", width: "22px", height: "20px" }}
+              />
               <Badge
                 pos="absolute"
                 top="0"
@@ -177,7 +175,7 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
                 px={2}
                 py={0}
               >
-                {cartIsFull ? quantity : null}
+                {cartIsFull ? cartItems : null}
               </Badge>
             </Box>
           </PopoverTrigger>
@@ -234,7 +232,7 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
                             {"$" +
                               ProductDetails[0].discountedPrice.toFixed(2) +
                               " x "}
-                            {quantity}
+                            {cartItems}
 
                             <Text
                               as="span"
@@ -284,7 +282,7 @@ const Navbar = ({ ProductDetails, showQuantity }) => {
             h={isLargerThanMD ? "50px" : "32px"}
             src={Avatar}
             alt="avatar"
-            border="4px"
+            border="2px"
             borderRadius={50}
             scale={2.1}
             borderColor={"transparent"}

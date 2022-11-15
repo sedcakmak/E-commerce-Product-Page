@@ -29,7 +29,7 @@ const Product = () => {
     imageRef.current.animate(
       {
         opacity: [0, 1],
-        // transform: ["scale(0,0)", "scale(1,1)"],
+        //transform: ["scale(0,0)", "scale(1,1)"],
         //  transform: ["translateX(300px)", "translateX(0px)"],
       },
       700

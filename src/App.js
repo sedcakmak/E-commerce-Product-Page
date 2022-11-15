@@ -9,13 +9,23 @@ export const CartContext = createContext();
 function App() {
   const [quantity, setQuantity] = useState(0);
   const [cartIsFull, setCartIsFull] = useState(false);
+  const [cartItems, setCartItems] = useState(0);
 
-  function showQuantity() {
-    if (quantity > 0) setCartIsFull(true);
+  function addtoCart() {
+    if (quantity > 0) {
+      setCartIsFull(true);
+      setCartItems(quantity);
+    }
   }
   return (
     <CartContext.Provider
-      value={{ quantity, setQuantity, cartIsFull, setCartIsFull }}
+      value={{
+        quantity,
+        setQuantity,
+        cartIsFull,
+        setCartIsFull,
+        cartItems,
+      }}
     >
       <header className="App-header">
         <Navbar
@@ -26,7 +36,7 @@ function App() {
         <Main
           quantity={quantity}
           ProductDetails={ProductDetails}
-          showQuantity={showQuantity}
+          addtoCart={addtoCart}
         />
       </header>
     </CartContext.Provider>
