@@ -191,13 +191,22 @@ const Navbar = ({ ProductDetails }) => {
             minW={{ base: "90vw", lg: "fit-content" }}
             mr={{ base: "20px" }}
           >
-            <PopoverHeader fontWeight="semibold">Cart</PopoverHeader>
-            <PopoverBody h="100%">
+            <PopoverHeader
+              fontWeight="semibold"
+              px={{ base: 8, lg: 4 }}
+              mt={{ base: 4, lg: 0 }}
+            >
+              Cart
+            </PopoverHeader>
+            <PopoverBody
+              h="100%"
+              px={{ base: 8, lg: 4 }}
+            >
               {cartIsFull ? (
                 <Fragment>
                   <Flex
                     direction={"row"}
-                    justify="space-around"
+                    justify="space-between"
                     mt={4}
                     _hover={{
                       cursor: "pointer",
@@ -224,8 +233,13 @@ const Navbar = ({ ProductDetails }) => {
                           direction={"column"}
                           fontSize="15px"
                         >
-                          <Text color="primary.customGray">
-                            {" "}
+                          <Text
+                            color="primary.customGray"
+                            textOverflow="ellipsis"
+                            whiteSpace="nowrap"
+                            overflow="hidden"
+                            width={{ base: "155px", lg: "100%" }}
+                          >
                             {ProductDetails[0].title}
                           </Text>
                           <Text color="primary.customGray">

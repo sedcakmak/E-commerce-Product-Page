@@ -1,8 +1,22 @@
 import { useEffect, useState, useRef } from "react";
-import { useMediaQuery, Image, Box, Flex, IconButton } from "@chakra-ui/react";
+import {
+  useMediaQuery,
+  Image,
+  Box,
+  Flex,
+  IconButton,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+} from "@chakra-ui/react";
 import { ReactComponent as Previous } from "../images/icon-previous.svg";
 import { ReactComponent as Next } from "../images/icon-next.svg";
 import { ProductImages } from "./data/ProductImages";
+import ProductModal from "./Modal";
 
 //import { motion } from "framer-motion";
 
@@ -12,6 +26,7 @@ const Product = () => {
     "/images/image-product-1.jpg"
   );
   const [slide, setSlide] = useState(0);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const imageRef = useRef();
 
   const [touchPosition, setTouchPosition] = useState(null);
@@ -115,9 +130,19 @@ const Product = () => {
             h="100%"
             w="100%"
             transition=".2s ease-out"
+            onClick={onOpen}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
           />
+
+          {isLargerThanMD && isOpen && (
+            <Modal
+              isOpen={isOpen}
+              onClose={onClose}
+            >
+              <ProductModal />
+            </Modal>
+          )}
 
           {!isLargerThanMD && (
             <IconButton
