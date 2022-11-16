@@ -10,7 +10,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as Previous } from "../images/icon-previous.svg";
 import { ReactComponent as Next } from "../images/icon-next.svg";
 import { ProductImages } from "./data/ProductImages";
@@ -20,7 +20,6 @@ const ProductModal = () => {
     "/images/image-product-1.jpg"
   );
 
-  const imageRef = useRef();
   const [slide, setSlide] = useState(0);
 
   function changeDisplayImage(e) {
@@ -50,6 +49,7 @@ const ProductModal = () => {
         bg="transparent"
         border="none"
         boxShadow={"none"}
+        stroke="#1D2026"
       >
         <ModalHeader></ModalHeader>
         <ModalCloseButton
@@ -59,23 +59,21 @@ const ProductModal = () => {
         <ModalBody>
           <IconButton
             variant="ghost"
-            colorScheme="orange"
             aria-label="Previous"
             fontSize="20px"
             position="absolute"
             top="40%"
             left="-16px"
-            icon={<Previous />}
+            icon={<Previous style={{ transform: "scale(0.7,0.7)" }} />}
             bgColor={"white"}
             borderRadius="3xl"
             ms="5"
-            _hover={{ color: "orange" }}
+            _hover={{ stroke: "orange" }}
             onClick={() => displayPrevImage()}
           />
           <Image
             src={displayImage}
             alt="Product image"
-            ref={imageRef}
             rounded={{ base: "none", lg: "xl" }}
             _hover={{
               cursor: "pointer",
@@ -89,17 +87,16 @@ const ProductModal = () => {
           />
           <IconButton
             variant="ghost"
-            //   colorScheme="orange"
             aria-label="Next"
             fontSize="20px"
             position="absolute"
             top="40%"
             right="-16px"
-            icon={<Next style={{ path: "orange" }} />}
+            icon={<Next style={{ transform: "scale(0.7,0.7)" }} />}
             bgColor={"white"}
             borderRadius="3xl"
             me="5"
-            //   _hover={{ fill: "orange" }}
+            _hover={{ stroke: "orange" }}
             onClick={() => displayNextImage()}
           />
           <Box

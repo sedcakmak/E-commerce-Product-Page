@@ -13,8 +13,6 @@ import { ReactComponent as Next } from "../images/icon-next.svg";
 import { ProductImages } from "./data/ProductImages";
 import ProductModal from "./Modal";
 
-//import { motion } from "framer-motion";
-
 const Product = () => {
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
   const [displayImage, setDisplayImage] = useState(
@@ -39,8 +37,6 @@ const Product = () => {
     imageRef.current.animate(
       {
         opacity: [0, 1],
-        //transform: ["scale(0,0)", "scale(1,1)"],
-        //  transform: ["translateX(300px)", "translateX(0px)"],
       },
       700
     );

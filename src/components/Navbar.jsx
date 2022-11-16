@@ -34,6 +34,8 @@ import { CartContext } from "../App";
 //import { motion } from "framer-motion";
 
 const Navbar = ({ ProductDetails }) => {
+  console.log("local storage: " + localStorage.getItem("quantity"));
+
   const [scroll, setScroll] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { quantity, cartIsFull, setCartIsFull, cartItems } =
@@ -41,16 +43,17 @@ const Navbar = ({ ProductDetails }) => {
   const btnRef = React.useRef();
   const initialRef = React.useRef();
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
-  const changeScroll = () =>
-    document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
-      ? setScroll(true)
-      : setScroll(false);
+  // const changeScroll = () =>
+  //   document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
+  //     ? setScroll(true)
+  //     : setScroll(false);
+  console.log("cartitems " + cartItems);
 
   function emptyCart() {
     setCartIsFull(false);
   }
 
-  window.addEventListener("scroll", changeScroll);
+  // window.addEventListener("scroll", changeScroll);
 
   return (
     <>
@@ -175,7 +178,7 @@ const Navbar = ({ ProductDetails }) => {
                 px={2}
                 py={0}
               >
-                {cartIsFull ? cartItems : null}
+                {cartItems > 0 ? cartItems : null}
               </Badge>
             </Box>
           </PopoverTrigger>
@@ -196,7 +199,7 @@ const Navbar = ({ ProductDetails }) => {
               px={{ base: 8, lg: 4 }}
               mt={{ base: 4, lg: 0 }}
             >
-              Cart
+              Cart {localStorage.getItem("quantity")}
             </PopoverHeader>
             <PopoverBody
               h="100%"
