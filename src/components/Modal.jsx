@@ -1,16 +1,13 @@
 import {
-  Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  useDisclosure,
   Image,
   Flex,
   Box,
   IconButton,
-  Icon,
 } from "@chakra-ui/react";
 
 import { useState, useRef, useEffect } from "react";

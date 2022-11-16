@@ -7,11 +7,6 @@ import {
   IconButton,
   useDisclosure,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
 } from "@chakra-ui/react";
 import { ReactComponent as Previous } from "../images/icon-previous.svg";
 import { ReactComponent as Next } from "../images/icon-next.svg";
