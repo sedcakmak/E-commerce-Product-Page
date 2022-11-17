@@ -7,9 +7,9 @@ import customTheme from "./extendTheme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <ChakraProvider theme={customTheme}>
-      <App />
-    </ChakraProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ChakraProvider theme={customTheme}>
+    <App />
+  </ChakraProvider>
+  // </React.StrictMode>
 );

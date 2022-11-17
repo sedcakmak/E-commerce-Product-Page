@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import {
   Box,
   Image,
@@ -21,9 +21,9 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverHeader,
-  // useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
+
 import { ReactComponent as Cart } from "../images/icon-cart.svg";
 import { ReactComponent as Trash } from "../images/icon-delete.svg";
 import { ReactComponent as Hamburger } from "../images/icon-menu.svg";
@@ -31,29 +31,13 @@ import { ReactComponent as Logo } from "../images/logo.svg";
 import { ReactComponent as CloseIcon } from "../images/icon-close.svg";
 import Avatar from "../images/image-avatar.png";
 import { CartContext } from "../App";
-//import { motion } from "framer-motion";
 
-const Navbar = ({ ProductDetails }) => {
-  console.log("local storage: " + localStorage.getItem("quantity"));
-
-  const [scroll, setScroll] = useState(false);
+const Navbar = ({ ProductDetails, emptyCart }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { quantity, cartIsFull, setCartIsFull, cartItems } =
-    useContext(CartContext);
+  const { quantity, cartItems } = useContext(CartContext);
   const btnRef = React.useRef();
   const initialRef = React.useRef();
   const [isLargerThanMD] = useMediaQuery("(min-width: 48em)");
-  // const changeScroll = () =>
-  //   document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
-  //     ? setScroll(true)
-  //     : setScroll(false);
-  console.log("cartitems " + cartItems);
-
-  function emptyCart() {
-    setCartIsFull(false);
-  }
-
-  // window.addEventListener("scroll", changeScroll);
 
   return (
     <>
@@ -61,7 +45,6 @@ const Navbar = ({ ProductDetails }) => {
         h="10vh"
         alignItems="center"
         px={isLargerThanMD ? "40" : "5"}
-        boxShadow={scroll ? "base" : "none"}
         position="sticky"
         top="0"
         zIndex="sticky"
@@ -173,7 +156,7 @@ const Navbar = ({ ProductDetails }) => {
                 right="0"
                 bg="primary.orange"
                 color="neutral.white"
-                rounded="xl" //borderRadius={10}
+                rounded="xl"
                 fontSize="0.6em"
                 px={2}
                 py={0}
@@ -190,7 +173,6 @@ const Navbar = ({ ProductDetails }) => {
             mt={{ base: "9", lg: "1" }}
             boxShadow="2xl"
             borderTop="none"
-            // w={{ base: "90vw" }}
             minW={{ base: "90vw", lg: "fit-content" }}
             mr={{ base: "20px" }}
           >
@@ -199,13 +181,13 @@ const Navbar = ({ ProductDetails }) => {
               px={{ base: 8, lg: 4 }}
               mt={{ base: 4, lg: 0 }}
             >
-              Cart {localStorage.getItem("quantity")}
+              Cart
             </PopoverHeader>
             <PopoverBody
               h="100%"
               px={{ base: 8, lg: 4 }}
             >
-              {cartIsFull ? (
+              {cartItems ? (
                 <Fragment>
                   <Flex
                     direction={"row"}
@@ -266,7 +248,7 @@ const Navbar = ({ ProductDetails }) => {
                       </Flex>
                     </Link>
                     <Box alignSelf="center">
-                      <Trash onClick={() => emptyCart()} />
+                      <Trash onClick={emptyCart} />
                     </Box>
                   </Flex>
                   <Button

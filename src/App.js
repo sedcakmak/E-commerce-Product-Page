@@ -6,38 +6,42 @@ import Main from "./components/Main";
 
 export const CartContext = createContext();
 
+const cartFromLocalStorage = JSON.parse(localStorage.getItem("quantity")) || 0;
+
 function App() {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(cartFromLocalStorage);
+  const [cartItems, setCartItems] = useState(cartFromLocalStorage);
   const [cartIsFull, setCartIsFull] = useState(false);
-  const [cartItems, setCartItems] = useState(localStorage.getItem("quantity"));
 
   function addtoCart() {
-    if (quantity > 0 || cartItems > 0) {
+    if (quantity > 0) {
+      setCartItems(localStorage.getItem("quantity"));
       setCartIsFull(true);
-      setCartItems(quantity);
     }
+  }
+
+  function emptyCart() {
+    setCartItems(localStorage.removeItem("quantity"));
+    setCartIsFull(false);
   }
 
   useEffect(() => {
     localStorage.setItem("quantity", JSON.stringify(quantity));
-  }, [quantity]);
+  }, [quantity, cartIsFull]);
 
-  console.log(cartItems);
   return (
     <CartContext.Provider
       value={{
         quantity,
         setQuantity,
-        cartIsFull,
-        setCartIsFull,
         cartItems,
       }}
     >
       <header className="App-header">
         <Navbar
           quantity={quantity}
+          emptyCart={emptyCart}
           ProductDetails={ProductDetails}
-          cartIsFull={cartIsFull}
         />
         <Main
           quantity={quantity}
