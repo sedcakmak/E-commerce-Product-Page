@@ -1,8 +1,8 @@
 import { useState, useEffect, createContext } from "react";
-import "./App.css";
 import { ProductDetails } from "./components/data/ProductDetails";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
+import { Footer } from "./components/Footer";
 
 export const CartContext = createContext();
 
@@ -49,6 +49,7 @@ function App() {
           addtoCart={addtoCart}
         />
       </header>
+      <Footer />
     </CartContext.Provider>
   );
 }

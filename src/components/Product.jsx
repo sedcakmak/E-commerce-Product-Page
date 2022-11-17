@@ -94,13 +94,13 @@ const Product = () => {
           {!isLargerThanMD && (
             <IconButton
               variant="ghost"
-              colorScheme="orange"
               aria-label="Previous"
               fontSize="20px"
               position="absolute"
               top="50%"
               left="0"
               icon={<Previous />}
+              stroke="#1D2026"
               bgColor={"white"}
               borderRadius="3xl"
               ms="5"
@@ -145,6 +145,7 @@ const Product = () => {
               top="50%"
               right="0"
               icon={<Next />}
+              stroke="#1D2026"
               bgColor={"white"}
               borderRadius="3xl"
               me="5"
